@@ -181,7 +181,7 @@ if (isset($_SESSION['Super'])) {
                                 <li>
                                     <a href="superusuarioha.php">
                                         <i class="metismenu-icon pe-7s-door-lock"></i>
-                                        Habitaciones
+                                        Proveedores
                                     </a>
                                 </li>
                                 <li>
@@ -208,7 +208,7 @@ if (isset($_SESSION['Super'])) {
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="app-main__outer">
                     <div class="app-main__inner">
                         <div class="app-page-title">
@@ -242,81 +242,7 @@ if (isset($_SESSION['Super'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-warning">
-                                    <div class="widget-content-wrapper text-black">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading text-black">Habitaciones Ocupadas</div>
-                                        </div>
-                                        <div class="widget-content-right">
-
-                                            <?php
-                                            require 'includes/bd.inc.php';
-                                            $statush = '1';
-                                            $sql = "SELECT count(*) AS total FROM pacientes where statush='$statush'";
-                                            $result = mysqli_query($conn, $sql);
-                                            while ($mostrar = mysqli_fetch_array($result)) {
-                                            ?>
-                                                <div class="widget-numbers text-black">
-                                                    <span><?php echo $mostrar['total']; ?>
-                                                    </span>
-                                                </div>
-                                            <?php } ?>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-grow-early">
-                                    <div class="widget-content-wrapper text-white">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">Habitaciones Disponibles</div>
-                                        </div>
-                                        <div class="widget-content-right">
-
-                                            <?php
-                                            require 'includes/bd.inc.php';
-                                            $max_count = 12; // valor máximo a mostrar por defecto
-                                            $statush = '1'; // valor a buscar en la tabla
-                                            $sql = "SELECT COUNT(*) AS total FROM pacientes WHERE statush='$statush'";
-                                            $result = mysqli_query($conn, $sql);
-                                            if ($result && mysqli_num_rows($result) > 0) {
-                                                $mostrar = mysqli_fetch_assoc($result);
-                                                $count = $max_count - $mostrar['total']; // calcular el valor a mostrar
-                                                if ($count < 0) {
-                                                    $count = 0; // asegurarse de que el valor no sea negativo
-                                                }
-                                            } else {
-                                                $count = $max_count; // en caso de error, mostrar valor máximo
-                                            }
-                                            ?>
-                                            <div class="widget-numbers text-white">
-                                                <span><?php echo $count; ?></span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-asteroid header-text-light">
-                                    <div class="widget-content-wrapper text-white">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">Total de Habitaciones</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-white">
-                                                <span>12
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h2>Comprobantes</h2>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="main-card mb-3 card">
@@ -324,15 +250,15 @@ if (isset($_SESSION['Super'])) {
                                         <div class="py-3 align-item-center justify-content-between">
                                             <a data-toggle="modal" href="#nuevoregistro" class="btn-shadow btn btn-primary">
                                                 <i class="pe-7s-plus"></i>
-                                                Nuevo Paciente
+                                                Nuevo Comprobante
                                             </a>
                                         </div>
                                         Listado
                                         <div class="py-3 align-item-center justify-content-between">
-                                            <a href="pdf.php" class="btn-shadow btn btn-danger">
+                                            <!-- <a href="pdf.php" class="btn-shadow btn btn-danger">
                                                 <i class="fa fa-file-pdf"></i>
                                                 Generar PDF
-                                            </a>
+                                            </a> -->
                                             <a href="includes/excel.php?export=true" class="btn-shadow btn btn-success">
                                                 <i class="fa fa-file-excel"></i>
                                                 Generar EXCEL
@@ -364,22 +290,21 @@ if (isset($_SESSION['Super'])) {
                                         <table id="tabla" class="align-middle mb-0 table table-borderless table-striped table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">Habitacion</th>
-                                                    <th class="text-center">Paciente</th>
-                                                    <th class="text-center">Cedula</th>
-                                                    <th class="text-center">Edad</th>
-                                                    <th class="text-center">Sexo</th>
-                                                    <th class="text-center">Estado</th>
-                                                    <th class="text-center">Municipio</th>
-                                                    <th class="text-center">Parroquia</th>
-                                                    <th class="text-center">Patologia</th>
-                                                    <th class="text-center">Fecha ingreso</th>
-                                                    <th class="text-center">Fecha egreso</th>
-                                                    <th class="text-center">Estatus</th>
+                                                    <th class="text-center">Nro</th>
+                                                    <th class="text-center">Proveedor</th>
+                                                    <th class="text-center">F.emision</th>
+                                                    <th class="text-center">F.entrega</th>
+                                                    <th class="text-center">F.factura</th>
+                                                    <th class="text-center">N.factura</th>
+                                                    <th class="text-center">N.Control</th>
+                                                    <th class="text-center">total facturado</th>
+                                                    <th class="text-center">base imponible</th>
+                                                    <th class="text-center">impuesto iva (16%)</th>
+                                                    <th class="text-center">iva retenido (75%)</th>
                                                     <th class="text-center">Acciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <!-- <tbody>
                                                 <?php
                                                 require 'includes/bd.inc.php';
                                                 $sql = "SELECT * from pacientes";
@@ -444,6 +369,30 @@ if (isset($_SESSION['Super'])) {
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
+                                            </tbody> -->
+                                            <tbody>
+                                                <tr>
+                                                    <th class="text-center">20240100000846</th>
+                                                    <th class="text-center">Comercial unique center, C.A</th>
+                                                    <th class="text-center">11-01-2024</th>
+                                                    <th class="text-center">15-01-2024</th>
+                                                    <th class="text-center">16-01-2024</th>
+                                                    <th class="text-center">00006790</th>
+                                                    <th class="text-center">Z1B8046526</th>
+                                                    <th class="text-center">359.69</th>
+                                                    <th class="text-center">310.08</th>
+                                                    <th class="text-center">49.61</th>
+                                                    <th class="text-center">37.21</th>
+                                                    <td class="text-center">
+                                                        <div>
+                                                            <button class="btn btn-warning" type="submit" name="cambiar" data-toggle="tooltip" data-placement="left" title="Cambiar status">
+                                                                Editar
+                                                            </button>
+                                                            <button class="btn btn-danger" type="submit" name="cambiar" data-toggle="tooltip" data-placement="left" title="Cambiar status">
+                                                                PDF
+                                                            </button>
+                                                        </div>
+                                                    </td>
                                             </tbody>
                                         </table>
                                     </div>
@@ -601,7 +550,7 @@ if (isset($_SESSION['Super'])) {
                 <div class="modal-content">
                     <div class="modal-header">
 
-                        <h5 class="modal-title" id="exampleModalLongTitle">Registro de Paciente</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Nuevo Comprobante</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -614,12 +563,13 @@ if (isset($_SESSION['Super'])) {
                         <div class="modal-body">
 
                             <div class="form-row">
-
+                                
+                                <!-- nro Comprobante -->
                                 <div class="col-md-4 mb-3">
 
-                                    <label for="paciente">Nombre y Apellido</label>
+                                    <label for="paciente">Nro de Comprobante</label>
 
-                                    <input type="text" class="form-control" id="paciente" name='paciente' placeholder="Nombre y Apellido" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))" maxlength="30" required>
+                                    <input type="number" class="form-control" id="paciente" name='nroComprobante' placeholder="Ejemplo 20240100000846" required>
 
                                     <div class="invalid-feedback">
                                         Debe rellenar este campo.
@@ -630,45 +580,18 @@ if (isset($_SESSION['Super'])) {
                                     </div>
 
                                 </div>
-
+                                
+                                <!-- Proveedor -->
                                 <div class="col-md-4 mb-3">
 
-                                    <label for="cedula">Cedula</label>
+                                    <label for="estado">Proveedor</label>
 
-                                    <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Cedula" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" maxlength="8" required>
+                                    <select id="estado" name="proveedor" class="form-control">
 
-                                    <div class="invalid-feedback">
-                                        Debe rellenar este campo.
-                                    </div>
-
-                                    <div class="valid-feedback">
-                                        Listo.
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2 mb-3">
-
-                                    <label for="edad">Edad</label>
-
-                                    <input type="text" class="form-control" id="edad" name="edad" placeholder="Edad" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" maxlength="8" required>
-
-                                    <div class="invalid-feedback">
-                                        Debe rellenar este campo.
-                                    </div>
-
-                                    <div class="valid-feedback">
-                                        Listo.
-                                    </div>
-
-                                </div>
-                                <div class="col-md-2 mb-3">
-
-                                    <label for="sexo">Sexo</label>
-
-                                    <select id="sexo" name="sexo" class="form-control">
-
-                                        <option value="M">Masculino</option>
-                                        <option value="F">Femenino</option>
+                                        <option value="Bolivar">Comercial Auioneit CA</option>
+                                        <option value="Anzoategui">Refrescos Guatire</option>
+                                        <option value="Merida">Helados cali CA</option>
+                                        <option value="Trujillo">Comercial watire center, C.A</option>
 
                                     </select>
 
@@ -681,23 +604,127 @@ if (isset($_SESSION['Super'])) {
                                     </div>
 
                                 </div>
+
+
+                                <!-- Rif Proveedor -->
+                                <div class="col-md-4 mb-3">
+
+                                    <label for="paciente">Rif Proveedor</label>
+
+                                    <input disabled type="text" class="form-control" id="paciente" name='rifProveedor' placeholder="j-298400870" >
+
+                                    <div class="invalid-feedback">
+                                        Debe rellenar este campo.
+                                    </div>
+
+                                    <div class="valid-feedback">
+                                        Listo.
+                                    </div>
+
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            <div class="form-row">
+                                <!-- Direccion del Proveedor -->
+                                <div class="col-md-12 mb-3">
+    
+                                    <label for="paciente">Direccion del Proveedor</label>
+    
+                                    <input disabled type="text" class="form-control" id="paciente" name='dirreccionProveedor' placeholder="Andres Eloy Blanco, Calle el Palmar, Ciudad Bolívar, Venezuela" >
+    
+                                    <div class="invalid-feedback">
+                                        Debe rellenar este campo.
+                                    </div>
+    
+                                    <div class="valid-feedback">
+                                        Listo.
+                                    </div>
+    
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-row">
+                                
+                                
+                                
+                                <!-- F.emision -->
+                                <div class="col-md-3 mb-3">
+                                    
+                                    <label for="sexo">F.Emision</label>
+
+                                    <input type="date" class="form-control" id="edad" name="fEmision" placeholder="fEmision" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" maxlength="8" required>
+
+                                    <div class="invalid-feedback">
+                                        Debe llenar este campo.
+                                    </div>
+
+                                    <div class="valid-feedback">
+                                        Listo.
+                                    </div>
+
+                                </div>
+
+                                <!-- F.entrega -->
+                                <div class="col-md-3 mb-3">
+
+                                    <label for="sexo">F.entrega</label>
+
+                                    <input type="date" class="form-control" id="edad" name="fEntrega" placeholder="fEntrega" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" maxlength="8" required>
+
+                                    <div class="invalid-feedback">
+                                        Debe llenar este campo.
+                                    </div>
+
+                                    <div class="valid-feedback">
+                                        Listo.
+                                    </div>
+
+                                </div>
+                                <!-- F.factura -->
+                                <div class="col-md-3 mb-3">
+
+                                    <label for="sexo">F.factura</label>
+
+                                    <input type="date" class="form-control" id="edad" name="fFactura" placeholder="fFactura" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" maxlength="8" required>
+
+                                    <div class="invalid-feedback">
+                                        Debe llenar este campo.
+                                    </div>
+
+                                    <div class="valid-feedback">
+                                        Listo.
+                                    </div>
+
+                                </div>
+                                <!-- nro Control -->
+                                <div class="col-md-3 mb-3">
+
+                                    <label for="estado">nro de control</label>
+
+                                    <input type="text" class="form-control" id="estado" name="nroControl" placeholder="ejemplo: Z1B8046526" required>
+                                    <div class="invalid-feedback">
+                                        Debe llenar este campo.
+                                    </div>
+
+                                    <div class="valid-feedback">
+                                        Listo.
+                                    </div>
+
+                                </div>
+
 
                             </div>
 
                             <div class="form-row">
+                                <!-- total facturado -->
+                                <div class="col-md-3 mb-3">
 
-                                <div class="col-md-4 mb-3">
+                                    <label for="patologia">total facturado</label>
 
-                                    <label for="estado">Estado</label>
-
-                                    <select id="estado" name="estado" class="form-control">
-
-                                        <option value="Bolivar">Bolivar</option>
-                                        <option value="Anzoategui">Anzoategui</option>
-                                        <option value="Merida">Merida</option>
-                                        <option value="Trujillo">Trujillo</option>
-
-                                    </select>
+                                    <input type="number" class="form-control" id="paciente" name='totalFacturado' placeholder="total facturado" required>
 
                                     <div class="invalid-feedback">
                                         Debe llenar este campo.
@@ -708,18 +735,12 @@ if (isset($_SESSION['Super'])) {
                                     </div>
 
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <!-- base imponible -->
+                                <div class="col-md-3 mb-3">
 
-                                    <label for="municipio">Municipio</label>
+                                    <label for="patologia">base imponible</label>
 
-                                    <select id="municipio" name="municipio" class="form-control">
-
-                                        <option value="Sucre">Sucre</option>
-                                        <option value="Cedeno">Cedeno</option>
-                                        <option value="Angostura del Orinoco">Angostura del Orinoco</option>
-                                        <option value="Padre Chien">Padre Chien</option>
-
-                                    </select>
+                                    <input type="number" class="form-control" id="paciente" name='baseImponible' placeholder="base imponible" required>
 
                                     <div class="invalid-feedback">
                                         Debe llenar este campo.
@@ -730,18 +751,12 @@ if (isset($_SESSION['Super'])) {
                                     </div>
 
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <!-- impuesto iva -->
+                                <div class="col-md-3 mb-3">
 
-                                    <label for="parroquia">Parroquia</label>
+                                    <label for="patologia">impuesto iva</label>
 
-                                    <select id="parroquia" name="parroquia" class="form-control">
-
-                                        <option value="Marhuanta">Marhuanta</option>
-                                        <option value="Vista Hermosa">Vista Hermosa</option>
-                                        <option value="Catedral">Catedral</option>
-                                        <option value="Sabanita">Sabanita</option>
-
-                                    </select>
+                                    <input disabled type="number" class="form-control" id="paciente" name='impuestoIva' placeholder="impuesto iva" required>
 
                                     <div class="invalid-feedback">
                                         Debe llenar este campo.
@@ -752,23 +767,12 @@ if (isset($_SESSION['Super'])) {
                                     </div>
 
                                 </div>
+                                <!-- iva retenido -->
+                                <div class="col-md-3 mb-3">
 
-                            </div>
+                                    <label for="patologia">iva retenido</label>
 
-                            <div class="form-row">
-
-                                <div class="col-md-4 mb-3">
-
-                                    <label for="patologia">Patologia</label>
-
-                                    <select id="patologia" name="patologia" class="form-control">
-
-                                        <option value="Gripe">Gripe</option>
-                                        <option value="Fiebre">Fiebre</option>
-                                        <option value="Tos">Tos</option>
-                                        <option value="Malestar">Malestar</option>
-
-                                    </select>
+                                    <input disabled type="number" class="form-control" id="paciente" name='ivaRetenido' placeholder="iva retenido" required>
 
                                     <div class="invalid-feedback">
                                         Debe llenar este campo.
@@ -779,33 +783,6 @@ if (isset($_SESSION['Super'])) {
                                     </div>
 
                                 </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label for="idh">Habitacion</label>
-
-                                    <select id="idh" name="idh" class="form-control">
-                                        <?php
-                                        require 'includes/bd.inc.php';
-                                        $idp = $_POST['idp'];
-                                        $sql = "SELECT * from habitaciones WHERE estatus = 0";
-                                        $result = mysqli_query($conn, $sql);
-                                        while ($mostrar = mysqli_fetch_array($result)) {
-                                        ?>
-
-                                            <option value="<?php echo $mostrar['idh']; ?>"><?php echo $mostrar['idh']; ?></option>
-
-                                        <?php } ?>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Debe llenar este campo.
-                                    </div>
-
-                                    <div class="valid-feedback">
-                                        Listo.
-                                    </div>
-
-                                </div>
-
                             </div>
 
                         </div>
